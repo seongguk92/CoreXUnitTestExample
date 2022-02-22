@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace CoreXUnitTestExample
@@ -30,6 +32,52 @@ namespace CoreXUnitTestExample
             _sut.Add(firstToAdd);
             _sut.Add(secondToAdd);
             Assert.Equal(expected, _sut.Value);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestData))]
+        public void AddManyNumbersShouldEqualTheirEqualTheory(
+    decimal expected, params decimal[] valueToAdd)
+        {
+            foreach (var value in valueToAdd)
+            {
+                _sut.Add(value);
+            }
+            Assert.Equal(expected, _sut.Value);
+        }
+
+        [Theory]
+        [ClassData(typeof(DivisionTestData))]
+        public void DividendManyNumbersTheory(
+decimal expected, params decimal[] valueToAdd)
+        {
+            foreach (var value in valueToAdd)
+            {
+                _sut.Divide(value);
+            }
+            Assert.Equal(expected, _sut.Value);
+        }
+
+        public static IEnumerable<object[]> TestData()
+        {
+            yield return new object[] { 15, new decimal[] { 10, 5 } };
+            yield return new object[] { 15, new decimal[] { 5, 5, 5 } };
+            yield return new object[] { 15, new decimal[] { -10, 25 } };
+        }
+
+        public class DivisionTestData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[] { 30, new decimal[] { 60, 2 } };
+                yield return new object[] { 0, new decimal[] { 0, 1 } };
+                yield return new object[] { 1, new decimal[] { 50, 50 } };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
