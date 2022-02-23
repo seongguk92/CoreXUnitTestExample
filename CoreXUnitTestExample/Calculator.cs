@@ -22,7 +22,7 @@ namespace CoreXUnitTestExample
         public decimal Subtract(decimal value)
         {
             _state = CalculatorState.Active;
-            return value -= value;
+            return Value -= value;
         }
         public decimal Multiply(decimal value)
         {
@@ -31,7 +31,7 @@ namespace CoreXUnitTestExample
                 _state = CalculatorState.Active;
                 return Value = value;
             }
-            return value *= value;
+            return Value *= value;
         }
         public decimal Divide(decimal value)
         {
@@ -40,7 +40,7 @@ namespace CoreXUnitTestExample
                 _state = CalculatorState.Active;
                 return Value = value;
             }
-            return value /= value;
+            return Value /= value;
         }
     }
 }
