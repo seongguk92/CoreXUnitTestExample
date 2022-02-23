@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoreXUnitTestExample
 {
-    class GuidGenerator
+    public class GuidGenerator
     {
         public Guid RandomGuid { get; } = Guid.NewGuid();
     }

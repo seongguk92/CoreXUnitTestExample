@@ -8,15 +8,20 @@ using Xunit.Abstractions;
 
 namespace CoreXUnitTestExample
 {
-    public class GuidGeneratorTestsOne
+    public class GuidGeneratorTestsOne : IClassFixture<GuidGenerator>, IDisposable
     {
         private readonly GuidGenerator _guidGenerator;
         private readonly ITestOutputHelper _output;
 
-        public GuidGeneratorTestsOne(ITestOutputHelper output)
+        public GuidGeneratorTestsOne(ITestOutputHelper output, GuidGenerator guidGenerator)
         {
             _output = output;
-            _guidGenerator = new GuidGenerator();
+            _guidGenerator = guidGenerator;
+        }
+
+        public void Dispose()
+        {
+            _output.WriteLine("The class was disposed");
         }
 
         [Fact]
